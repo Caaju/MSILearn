@@ -1,3 +1,4 @@
+using MSIUsers.Infra.Extensions.Notifications;
 using MSIUsers.Infra.Notifications.Enums;
 using MSIUsers.Infra.Notifications.ValueObjects;
 
@@ -19,6 +20,10 @@ public abstract class Notifier
         return notifications.Any(n => n.NoteType.Equals(NoteType.Error));
     }
     public bool HasNotifications => this.notifications.Any();
-
     public ICollection<NoteBase> Notifications => notifications;
+    public void Notify(string note, NoteType noteType)
+    {
+        if(noteType==NoteType.Warnning)
+            this.AddWarningNote("E-mail não informado.");
+    }
 }
