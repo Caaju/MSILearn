@@ -4,24 +4,21 @@ using MSIUsers.Infra.Notifications.ValueObjects;
 namespace MSIUsers.Infra.Notifications;
 public abstract class Notifier
 {
-    protected readonly ICollection<NoteBase> _notifications;
+    private readonly ICollection<NoteBase> notifications;
     public Notifier()
     {
-        _notifications = new HashSet<NoteBase>();
+        notifications = new HashSet<NoteBase>();
     }
     public void AddNotification(NoteBase note)
     {
-        this._notifications.Add(note);
+        this.notifications.Add(note);
     }
 
     public bool ExistNoteError()
     {
-        return _notifications.Any(n => n.NoteType.Equals(NoteType.Error));
+        return notifications.Any(n => n.NoteType.Equals(NoteType.Error));
     }
+    public bool HasNotifications => this.notifications.Any();
 
-    public virtual ICollection<NoteBase> GetNotification()
-    {
-        throw new NotImplementedException("Implementação deve estar na classe concreta");
-    }
-    
+    public ICollection<NoteBase> Notifications => notifications;
 }
